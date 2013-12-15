@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project name="Filtering" default="jar" basedir=".">
+
+    <property name="src" location="src" />
+    <property name="bin" location="bin" />
+    <property name="extdir" location="externals" />
+    <property name="jardir" location="jar" />
+    <property name="jarfile" location="${jardir}/${ant.project.name}.jar" />        
+    <property file="build.properties" />
+       
+  
+    <target name="init">
+        <tstamp>
+              <format property="compiletime" pattern="MM/dd/yyyy hh:mm aa"/>
+        </tstamp>
+        <echo message="creating build.properties"/>
+        <delete dir="${jardir}" />
+        <delete dir="${tempsrcdir}" />
+        <delete dir="${bin}"/>
+        <mkdir dir="${jardir}" />
+        <mkdir dir="${bin}"/>
+    </target>
+
+    <!-- Compile.  The classpath is set to include the external jars      -->
+    <!-- mentioned in my previous blog about ImageJ plugin development.   -->
+    <target name="compile" depends="init" description="compile classes">
+        <javac destdir="${bin}" srcdir="${src}" classpath="${extdir}/Jama-1.0.3.jar">
+        </javac>
+    </target>
+        
+    <!-- Build the jar.  The important step here is the zipgroupfileset   -->
+    <!-- which unpacks all my external jars and bundles them into the jar --> 
+    <!-- we are building. The plugins.config file is for ImageJ plugins.  -->
+    <!-- You would typically set the <manifest> here with something like  -->
+    <!-- <attribute name="Main-Class" value="your.main.class"/>           -->
+    <target name="jar" depends="init,compile" description="build jar">
+           <jar destfile="${jarfile}">
+              <fileset dir="${bin}">
+                <include name="**/*.class"/>
+              </fileset>
+                <zipgroupfileset dir="${extdir}" includes="*.jar" excludes="*.config"/>        
+            <fileset dir="${basedir}">
+                <include name="plugins.config" />
+            </fileset>
+        </jar>
+     </target>
+
+     <!-- Clean up jar and other temp directories -->
+    <target name="clean" description="delete all generated files">
+        <delete dir="${jardir}" quiet="true"/>
+        <delete dir="${tempsrcdir}" quiet="true"/>
+        <delete dir="${bin}" quiet="true"/>
+    </target>
+ </project>
