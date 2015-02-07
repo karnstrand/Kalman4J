@@ -1,7 +1,8 @@
 package models.measurement;
 
 import filter.MeasurementModel;
-import matrix.Matrix;
+import Jama.Matrix;
+import util.MatrixFactory; 
 
 public class CartesianMeasurementModel implements MeasurementModel {
 
@@ -11,16 +12,16 @@ public class CartesianMeasurementModel implements MeasurementModel {
 		R = new Matrix(new double[][]{{sigma*sigma,0},{0,sigma*sigma}});
 	}
 	
-	public Matrix measure(Matrix x, Matrix w) {
+	public Matrix h(Matrix x, Matrix w) {
 		return x.getMatrix(0,2,0,0).plus(w);
 	}
 
-	public Matrix measure(Matrix x) {
+	public Matrix h(Matrix x) {
 		return x.getMatrix(0,2,0,0);
 	}
 
 	public Matrix getH(Matrix x) {
-		return Matrix.eye(3); 
+		return MatrixFactory.eye(3); 
 	}
 
 	public Matrix getR() {

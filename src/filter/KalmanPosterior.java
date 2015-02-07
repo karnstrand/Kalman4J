@@ -20,7 +20,7 @@ public class KalmanPosterior extends StateGaussian{
 		Matrix F = mod.getF(mean(), T);
 		Matrix Q = mod.getQ(mean(), T);
 		
-		Matrix x = mod.f(mean(), T);
+		Matrix x = mod.predict(mean(), T);
 		Matrix P = (F.times(cov()).times(F.transpose())).plus(Q);
 		
 		return new KalmanPrediction(x, P, t, mod); 
@@ -36,9 +36,5 @@ public class KalmanPosterior extends StateGaussian{
 		KalmanPrediction pred = predict(M.time());
 		return pred.update(M);
 	}
-
-
-	
-	
 	
 }

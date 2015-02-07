@@ -20,7 +20,7 @@ public class KalmanPosterior extends filter.KalmanPosterior{
 		Matrix F = mod.getF(mean(), T);
 		Matrix Q = mod.getQ(mean(), T);
 		
-		Matrix x = mod.f(mean(), T);
+		Matrix x = mod.predict(mean(), T);
 		
 		Matrix Ppart = cov().times(F.transpose());
 		Matrix P = (F.times(Ppart)).plus(Q); 

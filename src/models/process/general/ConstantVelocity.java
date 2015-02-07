@@ -1,23 +1,23 @@
 package models.process;
 
 import filter.ProcessModel;
-import matrix.Matrix;
-import probability.Gaussian;
-import state.unscented.UnscentedProcessModel;  
+import Jama.Matrix;
+import util.MatrixFactory; 
+import util.probability.Gaussian; 
  
 
-public class ConstantVelocity implements ProcessModel, UnscentedProcessModel{
+public class ConstantVelocity implements ProcessModel{
 
 	private Gaussian noise; 
 	
 	public ConstantVelocity(double sigma)
 	{
-		noise = new Gaussian(new Matrix(2,1,0),Matrix.eye(2).times(sigma*sigma)); 
+		noise = new Gaussian(new Matrix(2,1,0),MatrixFactory.eye(2).times(sigma*sigma)); 
 	}
 	
 	public ConstantVelocity(Matrix acc, double sigma)
 	{
-		noise = new Gaussian(acc, Matrix.eye(2).times(sigma*sigma));  
+		noise = new Gaussian(acc, MatrixFactory.eye(2).times(sigma*sigma));  
 	}
 	
 	public Matrix predict(Matrix x, Matrix v, double T) {

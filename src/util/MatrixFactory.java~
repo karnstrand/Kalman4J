@@ -1,0 +1,27 @@
+package util.matrix; 
+
+
+public class Matrix extends Jama.Matrix{
+	
+	public Matrix(double[][] array){
+		
+		super(array); 
+		
+	}
+	
+	public static Matrix eye(int size){
+		
+		double[][] array = new double[size][size];
+		
+		return new Matrix(array); 
+		
+	}
+	
+	
+}
+	
+	
+	
+	
+	
+	

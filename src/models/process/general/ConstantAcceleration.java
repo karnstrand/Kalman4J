@@ -1,24 +1,24 @@
-package models.process;
+package models.process.general;
 
 import filter.ProcessModel;
-import matrix.Matrix;
-import probability.Gaussian;
-import state.unscented.UnscentedProcessModel; 
+import Jama.Matrix;
+import util.MatrixFactory; 
+import util.probability.Gaussian; 
  
 
-public class ConstantAcceleration implements ProcessModel, UnscentedProcessModel{
+public class ConstantAcceleration implements ProcessModel{
 	 
 	private Gaussian noise; 
 	
 	public ConstantAcceleration(double[][] jerk, double sigma)
 	{
-		noise = new Gaussian(new Matrix(jerk), Matrix.eye(2).times(sigma*sigma)); 
+		noise = new Gaussian(new Matrix(jerk), MatrixFactory.eye(2).times(sigma*sigma)); 
 	}
 	
 	
 	public ConstantAcceleration(Matrix jerk, double sigma)
 	{
-		noise = new Gaussian(jerk, Matrix.eye(2).times(sigma*sigma));  
+		noise = new Gaussian(jerk, MatrixFactory.eye(2).times(sigma*sigma));  
 	}
 	
 	public Matrix predict(Matrix x, Matrix v, double T) {
@@ -68,31 +68,9 @@ public class ConstantAcceleration implements ProcessModel, UnscentedProcessModel
 		Matrix G = getG(T); 
 		return G.times(B).times(noise.cov()).times(B.transpose()).times(G.transpose()); 
 	}
-	
-	public Matrix transform(Matrix x, Matrix v){
-		return x.copy(); 
-	}
 
 	public Gaussian getNoise() {
 		return noise; 
-	}
-
-	public Matrix linearize(Matrix x) {
-		return x.copy();
-	}
-	
-	public Matrix transform(Matrix x) {
-		return x.copy();
-	}
-
-
-	public Matrix transformJacobian(Matrix x) {
-		return Matrix.eye(6);
-	}
-
-
-	public Matrix linearizeJacobian(Matrix x) {
-		return Matrix.eye(6);
 	}
 
 	
