@@ -1,5 +1,6 @@
-package util; 
+package filter.unscented.util; 
 
+import util.probability.Gaussian;
 import Jama.Matrix; 
 
 public class SigmaPoints {

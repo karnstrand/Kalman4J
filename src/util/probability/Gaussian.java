@@ -1,4 +1,4 @@
-package util; 
+package util.probability; 
 
 import Jama.Matrix; 
 
