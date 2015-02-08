@@ -4,6 +4,7 @@
     <property name="srcdir" value="src" />
 	<property name="testdir" value="test" />
     <property name="bindir" location="bin" />
+	<property name="docdir" location="doc" />
     <property name="extdir" location="externals" />
     <property name="jardir" location="jar" />
     <property name="jarfile" location="${jardir}/${ant.project.name}.jar" />        
@@ -73,4 +74,10 @@
         <delete dir="${jardir}" />
         <delete dir="${bindir}"/>
     </target>
+	
+	<!-- Generate javadocs for current project into ${doc.dir} -->
+	<target name="doc" depends="init" description="generate documentation">
+		<javadoc sourcepath="${srcdir}" destdir="${docdir}"/>
+	</target>
+	
  </project>

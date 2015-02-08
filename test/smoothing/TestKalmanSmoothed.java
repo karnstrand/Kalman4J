@@ -33,8 +33,10 @@ public class TestKalmanSmoothed {
 	  assertEquals(0.0, smooth0.time(), 0.01); 
 	  assertEquals(1.0, smooth1.time(), 0.01); 
 	  
-	  assertEquals(1.0, smooth0.mean().get(0, 0), 0.1); 
-	  assertEquals(1.0, smooth0.mean().get(1, 0), 0.1); 
+	  assertEquals(0.5, smooth0.mean().get(0, 0), 0.01); 
+	  assertEquals(0.5, smooth0.mean().get(1, 0), 0.01);
+	  assertEquals(0.5, smooth0.mean().get(2, 0), 0.01); 
+	  assertEquals(0.5, smooth0.mean().get(3, 0), 0.01); 
 	  
 	  assertTrue(smooth0.cov().det() < post0.cov().det());
   
