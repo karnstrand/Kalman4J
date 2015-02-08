@@ -25,7 +25,14 @@
     <!-- Compile.  The classpath is set to include the external jars      -->
     <!-- mentioned in my previous blog about ImageJ plugin development.   -->
     <target name="compile" depends="init" description="compile classes">
-        <javac includeantruntime="false" destdir="${bin}" srcdir="${src}:${test}" classpath="${extdir}/Jama-1.0.3.jar">
+        <javac includeantruntime="false" destdir="${bin}" srcdir="${src}:${test}">
+    		<classpath>
+				<pathelement location="${extdir}/Jama-1.0.3.jar"/>
+				<pathelement location="${extdir}/hamcrest-core-1.3.jar"/>
+				<pathelement location="${extdir}/hamcrest-core-1.3-javadoc.jar"/>
+				<pathelement location="${extdir}/junit-4.12.jar"/>
+				<pathelement location="${extdir}/junit-4.12-javadoc.jar"/>
+			</classpath>
         </javac>
     </target>
         
@@ -46,14 +53,19 @@
         </jar>
      </target>
 	 
-	 <target name="test">
-	 	<java classname="test.util.probability.Gaussian">
+	<target name="test">
+		<java classname="test.TestKalman4J">
 	  		<arg value="-h"/>
 	    	<classpath>
-	    		<pathelement location="externals/Jama-1.0.3.jar"/>
-	        	<pathelement path="bin"/>
+				<pathelement location="test"/>
+				<pathelement path="bin"/>
+				<pathelement location="${extdir}/Jama-1.0.3.jar"/>
+				<pathelement location="${extdir}/hamcrest-core-1.3.jar"/>
+				<pathelement location="${extdir}/hamcrest-core-1.3-javadoc.jar"/>
+				<pathelement location="${extdir}/junit-4.12.jar"/>
+				<pathelement location="${extdir}/junit-4.12-javadoc.jar"/>
 	   		</classpath>
-	 	</java>
+	 	 </java>
  	</target>
 
      <!-- Clean up jar and other temp directories -->
