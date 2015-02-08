@@ -17,8 +17,8 @@ public class KalmanPosterior extends filter.KalmanPosterior{
 		ProcessModel mod = getProcessModel();  
 		double T = t - time(); 
 		
-		Matrix F = mod.getF(mean(), T);
-		Matrix Q = mod.getQ(mean(), T);
+		Matrix F = getF(t);
+		Matrix Q = getQ(t);
 		
 		Matrix x = mod.predict(mean(), T);
 		
@@ -50,8 +50,8 @@ public class KalmanPosterior extends filter.KalmanPosterior{
 		return pred.getParent(); 
 	}
 	
-	public Smoother getSmoother() {
-		return new Smoother(this); 
+	public KalmanSmoothed getSmoother() {
+		return new KalmanSmoothed(this); 
 	}
 	
 	public void clean(int N) {

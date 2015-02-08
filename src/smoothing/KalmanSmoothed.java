@@ -3,22 +3,22 @@ package smoothing;
 import Jama.Matrix;
 import filter.StateGaussian;
 
-public class Smoother extends StateGaussian{
+public class KalmanSmoothed extends StateGaussian{
 
 	private final KalmanPosterior post; 
 	
-	protected Smoother(Matrix x, Matrix P, KalmanPosterior post) {
+	protected KalmanSmoothed(Matrix x, Matrix P, KalmanPosterior post) {
 		super(x, P, post.time(), post.getProcessModel());
 		this.post = post;  
 	}
 
 	
-	protected Smoother(KalmanPosterior post) {
+	protected KalmanSmoothed(KalmanPosterior post) {
 		super(post.mean(), post.cov(), post.time(), post.getProcessModel());
 		this.post = post;  
 	}
 
-	public Smoother smooth() {
+	public KalmanSmoothed smooth() {
 		
 		KalmanPosterior parent = post.getParent();
 		KalmanPrediction pre = post.getPrediction(); 
@@ -28,7 +28,7 @@ public class Smoother extends StateGaussian{
 		Matrix x = parent.mean().plus(A.times(mean().minus(pre.mean()))); 
 		Matrix P = parent.cov().plus(A.times(cov().minus(pre.cov())).times(A.transpose())); 
 		
-		return new Smoother(x, P, parent); 
+		return new KalmanSmoothed(x, P, parent); 
 	
 	}
 	
