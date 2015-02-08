@@ -17,9 +17,9 @@
         <echo message="creating build.properties"/>
         <delete dir="${jardir}" />
         <delete dir="${tempsrcdir}" />
-        <delete dir="${bin}"/>
+        <delete dir="${bindir}"/>
         <mkdir dir="${jardir}" />
-        <mkdir dir="${bin}"/>
+        <mkdir dir="${bindir}"/>
     </target>
 
     <!-- Compile.  The classpath is set to include the external jars      -->

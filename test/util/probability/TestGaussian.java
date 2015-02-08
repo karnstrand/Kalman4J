@@ -17,7 +17,7 @@ public class TestGaussian {
 	  Gaussian gauss = new Gaussian(x, P); 
 	  
 	  Matrix mean = gauss.mean(); 
-	  
+	 
       assertEquals(mean.get(0, 0), 0, 0.01);
 	  assertEquals(mean.get(1, 0), 0, 0.01);
 	  
