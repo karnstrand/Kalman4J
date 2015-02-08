@@ -26,6 +26,9 @@ public class Gaussian{
 		return dim; 
 	}
 	
+	public double density(Matrix point){
+		return Math.pow((2 * Math.PI), -0.5 *(double)dim) * 
+			Math.pow(this.P.det(), -0.5) * Math.exp(-0.5 * (this.x.minus(point).transpose().times(this.P.inverse()).times(this.x.minus(point))).get(0,0));   
+	}
 	
-
 }
