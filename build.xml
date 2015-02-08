@@ -70,7 +70,7 @@
 
      <!-- Clean up jar and other temp directories -->
     <target name="clean" description="delete all generated files">
-        <delete dir="${jardir}" quiet="true"/>
-        <delete dir="${bindir}" quiet="true"/>
+        <delete dir="${jardir}" />
+        <delete dir="${bindir}"/>
     </target>
  </project>
