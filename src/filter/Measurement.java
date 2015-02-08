@@ -9,8 +9,8 @@ public class Measurement extends Matrix{
 	private MeasurementModel mod; 
 	private double t; 
 	
-	public Measurement(Matrix x, double t, MeasurementModel mod) {
-		super(x.getArray()); 
+	public Measurement(double[][] x, double t, MeasurementModel mod) {
+		super(x); 
 		this.mod = mod;
 		this.t = t; 
 	}

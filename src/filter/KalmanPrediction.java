@@ -22,9 +22,9 @@ public class KalmanPrediction extends StateGaussian{
 		Matrix H = measmod.getH(mean()); 
 		
 		Matrix PHT = cov().times(H.transpose());
-		Matrix S = H.times(PHT).plus(R);
-		Matrix K = PHT.times(S.transpose());
-		Matrix x = mean().plus(K.times((M.minus(y)))); 
+		Matrix S = (H.times(PHT)).plus(R);
+		Matrix K = PHT.times(S.inverse());
+		Matrix x = mean().plus(K.times(M.minus(y))); 
 		
 		int n = K.getRowDimension();  
 		Matrix Pmult = (Matrix.identity(n, n)).minus(K.times(H));

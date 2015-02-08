@@ -12,7 +12,9 @@ import test.models.measurement.*;
 	TestGaussian.class,
 	TestStateGaussian.class,
 	TestConstantVelocity.class,
-	TestCartesianMeasurementModel.class
+	TestCartesianMeasurementModel.class,
+	TestKalmanPrediction.class,
+	TestKalmanPosterior.class
 })
 	
 public class KalmanTestSuite {   

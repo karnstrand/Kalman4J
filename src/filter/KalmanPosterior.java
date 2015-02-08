@@ -14,7 +14,9 @@ public class KalmanPosterior extends StateGaussian{
 	
 	public KalmanPrediction predict(double t){
 		
-		return (KalmanPrediction) super.predict(t);  
+		StateGaussian state = super.predict(t);
+		
+		return new KalmanPrediction(state.mean(), state.cov(), state.time(), state.getProcessModel());   
 		
 	}
 	
