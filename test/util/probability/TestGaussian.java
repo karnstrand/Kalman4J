@@ -76,9 +76,6 @@ public class TestGaussian {
 	  Matrix P = new Matrix(new double[][]{{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}});
 	  
 	  Gaussian gauss = new Gaussian(x, P); 
-	 
-      assertEquals(mean.get(0, 0), 0, 0.01);
-	  assertEquals(mean.get(1, 0), 0, 0.01);
 	  
 	  int dim = gauss.dimension(); 
 	  
