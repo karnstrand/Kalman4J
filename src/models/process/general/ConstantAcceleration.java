@@ -31,7 +31,13 @@ public class ConstantAcceleration implements ProcessModel{
 	
 	public Matrix getF(Matrix x, double T)
 	{
-		double[][] F = {{1,0,T,0,T*T/2.0,0},{0,1,0,T,0,T*T/2.0},{0,0,1,0,T,0},{0,0,0,1,0,T},{0,0,0,0,1,0},{0,0,0,0,0,1}}; 
+		double[][] F = {{1,0,T,0,T*T/2.0,0},
+						{0,1,0,T,0,T*T/2.0},
+						{0,0,1,0,T,0},
+						{0,0,0,1,0,T},
+						{0,0,0,0,1,0},
+						{0,0,0,0,0,1}}; 
+		
 		return new Matrix(F);   
 	}
 	

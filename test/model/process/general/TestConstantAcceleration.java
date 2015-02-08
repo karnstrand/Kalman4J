@@ -31,5 +31,22 @@ public class TestConstantAcceleration {
    	  assertEquals(0,Q.det(), precision);
    	
    }
+   
+   @Test
+   public void testPredict() {
+   
+	  ProcessModel model = new ConstantAcceleration(1.0); 
+	  
+	  Matrix x0 = new Matrix(new double[][]{{0},{0},{0},{0},{1},{1}}); 
+      Matrix x1 = model.predict(x0, 2.0); 
+   
+	  assertEquals(2,x1.get(0, 0), 0.01);
+	  assertEquals(2,x1.get(1, 0), 0.01);
+	  assertEquals(2,x1.get(2, 0), 0.01);
+	  assertEquals(2,x1.get(3, 0), 0.01);
+	  assertEquals(1,x1.get(4, 0), 0.01);
+	  assertEquals(1,x1.get(5, 0), 0.01);
+   	
+   }
 
 }
