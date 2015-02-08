@@ -19,8 +19,8 @@ public class TestGaussian {
 	  
 	  Matrix mean = gauss.mean(); 
 	  
-      assertEquals(mean.get(0, 0), 0, precision);
-	  assertEquals(mean.get(1, 0), 0, precision);
+      assertEquals(0,mean.get(0, 0), precision);
+	  assertEquals(0,mean.get(1, 0), precision);
 	  			
    }
    
@@ -34,9 +34,9 @@ public class TestGaussian {
 	  
 	  Matrix mean = gauss.mean(); 
 	  
-      assertEquals(mean.get(0, 0), -2, precision);
-	  assertEquals(mean.get(1, 0), -3, precision);
-	  assertEquals(mean.get(2, 0), -1, precision);
+      assertEquals(-2,mean.get(0, 0), precision);
+	  assertEquals(-3,mean.get(1, 0), precision);
+	  assertEquals(-1,mean.get(2, 0), precision);
    }
    
    @Test
@@ -49,7 +49,7 @@ public class TestGaussian {
 	  
 	  Matrix mean = gauss.mean(); 
 	  
-      assertEquals(mean.get(0, 0), 5, precision);
+      assertEquals(5.0,mean.get(0, 0), precision);
    }
    
    @Test
@@ -62,10 +62,10 @@ public class TestGaussian {
 	  
 	  Matrix p = gauss.cov(); 
 	  
-      assertEquals(p.get(0, 0), 0.1, precision);
-	  assertEquals(p.get(1, 0), 0.3, precision);
-	  assertEquals(p.get(0, 1), 0.3, precision);
-	  assertEquals(p.get(1, 1), 0.5, precision);
+      assertEquals(0.1, p.get(0, 0), precision);
+	  assertEquals(0.3, p.get(1, 0), precision);
+	  assertEquals(0.3, p.get(0, 1), precision);
+	  assertEquals(0.5, p.get(1, 1), precision);
    }
    
    @Test
@@ -78,7 +78,7 @@ public class TestGaussian {
 	  
 	  int dim = gauss.dimension(); 
 	  
-      assertEquals(dim, 4);
+      assertEquals(4,dim);
 
    }
    
@@ -92,10 +92,9 @@ public class TestGaussian {
 	  Matrix point = new Matrix(new double[][]{{0},{0},{0},{0}});
 	  
 	  double density = gauss.density(point);
+	  double expectedDensity  = Math.pow((2 * Math.PI), -2);
 	  
-	  double result  = Math.pow((2 * Math.PI), -2);
-	  
-      assertEquals(density, result ,precision);
+      assertEquals(expectedDensity, density, precision);
 
    }
 

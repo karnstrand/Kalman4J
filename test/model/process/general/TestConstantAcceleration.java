@@ -17,7 +17,7 @@ public class TestConstantAcceleration {
 	  
       Matrix F = model.getF(null, 2); 
    
-   	  assertEquals(F.det(), 1.0, precision);
+   	  assertEquals(1.0,F.det(), precision);
    	
    }
    
