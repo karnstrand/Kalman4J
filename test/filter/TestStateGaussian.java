@@ -4,7 +4,6 @@ import org.junit.* ;
 import static org.junit.Assert.* ;
 import Jama.Matrix; 
 import filter.*; 
-import util.MatrixFactory; 
 import models.process.general.*; 
 
 public class TestStateGaussian {
@@ -13,7 +12,7 @@ public class TestStateGaussian {
    public void testPredict() {
       
 	  Matrix x = new Matrix(new double[][]{{0},{0},{1},{1}});
-	  Matrix P = MatrixFactory.eye(4);  
+	  Matrix P = Matrix.identity(4, 4);  
 	  
 	  ProcessModel model = new ConstantVelocity(1.0); 
 	  

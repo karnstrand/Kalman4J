@@ -1,50 +1,60 @@
 package models.process.general;
 
 import filter.ProcessModel;
-import Jama.Matrix;
-import util.MatrixFactory; 
+import Jama.Matrix; 
 import util.probability.Gaussian; 
  
 
 public class ConstantAcceleration implements ProcessModel{
 	 
-	private Gaussian noise; 
+	private double var; 
 	
-	public ConstantAcceleration(double[][] jerk, double sigma)
+	// public interface
+	
+	public ConstantAcceleration(double sigma)
 	{
-		noise = new Gaussian(new Matrix(jerk), MatrixFactory.eye(2).times(sigma*sigma)); 
-	}
-	
-	
-	public ConstantAcceleration(Matrix jerk, double sigma)
-	{
-		noise = new Gaussian(jerk, MatrixFactory.eye(2).times(sigma*sigma));  
+		this.var = sigma * sigma; 
 	}
 	
 	public Matrix predict(Matrix x, Matrix v, double T) {
 		
 		Matrix B = getB();
-		Matrix F = getF(T);
+		Matrix F = getF(x, T);
 		Matrix G = getG(T); 
 		return (F.times(x)).plus(G.times(B).times(v));
 	}
 	
 	public Matrix predict(Matrix x, double T) {
 		
-		return predict(x, noise.mean(), T); 
-	}
-
-	
-	public Matrix getF(double T)
-	{
-		double[][] F = {{1,0,T,0,T*T/2.0,0},{0,1,0,T,0,T*T/2.0},{0,0,1,0,T,0},{0,0,0,1,0,T},{0,0,0,0,1,0},{0,0,0,0,0,1}}; 
-		return new Matrix(F); 
+		return predict(x, new Matrix(new double[][]{{0},{0}}), T); 
 	}
 	
 	public Matrix getF(Matrix x, double T)
 	{
-		return getF(T);  
+		double[][] F = {{1,0,T,0,T*T/2.0,0},{0,1,0,T,0,T*T/2.0},{0,0,1,0,T,0},{0,0,0,1,0,T},{0,0,0,0,1,0},{0,0,0,0,0,1}}; 
+		return new Matrix(F);   
 	}
+	
+	public Matrix getQ(Matrix x, double T) {
+		
+		double T2 = T * T; 
+		double T3 = T2 * T / 2.0;
+		double T4 = T2 * T2 / 4.0; 
+		double T5 = T4 * T / 3.0; 
+		double T6 = T5 * T / 3.0;
+		
+		double[][] Q = new double[][]{{T6, 0, T5, 0, T4, 0},
+								  {0, T6, 0, T5, 0, T4},
+								  {T5, 0, T4, 0, T3, 0},
+								  {0, T5, 0, T4, 0, T3},
+								  {T4, 0, T3, 0, T2, 0},
+								  {0, T4, 0, T3, 0, T2}};
+		
+		return (new Matrix(Q)).times(this.var);
+		
+	}
+	
+	// private methods
 	
 	private Matrix getG(double T)
 	{
@@ -55,23 +65,7 @@ public class ConstantAcceleration implements ProcessModel{
 	private Matrix getB(){
 		double[][] BT = {{0, 0},{0,0},{0,0},{0,0},{1,0},{0,1}}; 
 		return new Matrix(BT); 
-	}
-	
-	/**
-	 * Get linear motion uncertainty matrix Q
-	 * @param T Prediction time
-	 * @return Linear motion uncertainty matrix Q  
-	 */
-	
-	public Matrix getQ(Matrix x, double T) {
-		Matrix B = getB();
-		Matrix G = getG(T); 
-		return G.times(B).times(noise.cov()).times(B.transpose()).times(G.transpose()); 
-	}
-
-	public Gaussian getNoise() {
-		return noise; 
-	}
+	}	
 
 	
 }

@@ -4,7 +4,6 @@ import org.junit.* ;
 import static org.junit.Assert.* ;
 import Jama.Matrix; 
 import models.measurement.CartesianMeasurementModel; 
-import util.MatrixFactory; 
 
 public class TestCartesianMeasurementModel {
 

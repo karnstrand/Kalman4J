@@ -4,7 +4,6 @@ import org.junit.* ;
 import static org.junit.Assert.* ;
 import Jama.Matrix; 
 import util.probability.Gaussian; 
-import util.MatrixFactory; 
 
 public class TestGaussian {
 
@@ -14,7 +13,7 @@ public class TestGaussian {
    public void testMeanZero() {
       
 	  Matrix x = new Matrix(new double[][]{{0},{0}});
-	  Matrix P = MatrixFactory.eye(2);  
+	  Matrix P = Matrix.identity(2, 2);  
 	  
 	  Gaussian gauss = new Gaussian(x, P); 
 	  
@@ -29,7 +28,7 @@ public class TestGaussian {
    public void testNegativeMean() {
       
 	  Matrix x = new Matrix(new double[][]{{-2},{-3},{-1}});
-	  Matrix P = MatrixFactory.eye(3);  
+	  Matrix P = Matrix.identity(3, 3);  
 	  
 	  Gaussian gauss = new Gaussian(x, P); 
 	  

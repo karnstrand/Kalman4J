@@ -2,7 +2,6 @@ package models.process.general;
 
 import filter.ProcessModel;
 import Jama.Matrix;
-import util.MatrixFactory; 
 import util.probability.Gaussian; 
  
 
@@ -42,10 +41,14 @@ public class ConstantVelocity implements ProcessModel
 		double T2 = T * T; 
 		double T3 = T2 * T / 2.0;
 		double T4 = T2 * T2 / 4.0; 
-		return new Matrix(new double[][]{{T4 * this.var, 0, T3 * this.var, 0},
-									 {0, T4 * this.var, 0, T3 * this.var},
-									 {T3 * this.var, 0, T2 * this.var, 0},
-									 {0, T3 * this.var, 0, T2 * this.var}});
+		
+		double[][] Q = new double[][]{{T4, 0, T3, 0},
+								  {0, T4, 0, T3},
+								  {T3, 0, T2, 0},
+								  {0, T3, 0, T2}};
+		
+		return (new Matrix(Q)).times(this.var);
+		
 	}
 	
 	// private methods

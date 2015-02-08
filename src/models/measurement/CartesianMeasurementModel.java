@@ -2,7 +2,6 @@ package models.measurement;
 
 import filter.MeasurementModel;
 import Jama.Matrix;
-import util.MatrixFactory; 
 
 public class CartesianMeasurementModel implements MeasurementModel {
 

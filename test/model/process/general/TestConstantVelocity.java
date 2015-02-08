@@ -4,7 +4,6 @@ import org.junit.* ;
 import static org.junit.Assert.* ;
 import Jama.Matrix; 
 import filter.*; 
-import util.MatrixFactory; 
 import models.process.general.*; 
 
 public class TestConstantVelocity {
