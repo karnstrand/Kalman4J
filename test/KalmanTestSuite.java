@@ -12,6 +12,7 @@ import test.models.measurement.*;
 	TestGaussian.class,
 	TestStateGaussian.class,
 	TestConstantVelocity.class,
+	TestConstantAcceleration.class,
 	TestCartesianMeasurementModel.class,
 	TestKalmanPrediction.class,
 	TestKalmanPosterior.class

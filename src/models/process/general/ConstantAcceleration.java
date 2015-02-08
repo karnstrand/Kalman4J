@@ -39,8 +39,8 @@ public class ConstantAcceleration implements ProcessModel{
 		
 		double T2 = T * T; 
 		double T3 = T2 * T / 2.0;
-		double T4 = T2 * T2 / 4.0; 
-		double T5 = T4 * T / 3.0; 
+		double T4 = T2 * T2 / 6.0; 
+		double T5 = T4 * T / 2.0; 
 		double T6 = T5 * T / 3.0;
 		
 		double[][] Q = new double[][]{{T6, 0, T5, 0, T4, 0},
@@ -58,7 +58,12 @@ public class ConstantAcceleration implements ProcessModel{
 	
 	private Matrix getG(double T)
 	{
-		double[][] G = {{T,0,T*T/2,0,T*T*T/6.0,0},{0,T,0,T*T/2,0,T*T*T/6.0},{0,0,T,0,T*T/2,0},{0,0,0,T,0,T*T/2},{0,0,0,0,T,0},{0,0,0,0,0,T}}; 
+		double[][] G = {{T,	0,	T*T/2,	0,		T*T*T/6.0,	0},
+						{0,	T,	0,		T*T/2,	0,			T*T*T/6.0},
+						{0,	0,	T,		0,		T*T/2,		0},
+						{0,	0,	0,		T,		0,			T*T/2},
+						{0,	0,	0,		0,		T,			0},
+						{0,	0,	0,		0,		0,			T}}; 
 		return new Matrix(G); 
 	}
 
