@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <project name="Kalman4J" default="jar" basedir=".">
 
-    <property name="src" location="src" />
-	<property name="test" location="test" />
+    <property name="src" value="src" />
+	<property name="test" value="test" />
     <property name="bin" location="bin" />
     <property name="extdir" location="externals" />
     <property name="jardir" location="jar" />
@@ -25,7 +25,7 @@
     <!-- Compile.  The classpath is set to include the external jars      -->
     <!-- mentioned in my previous blog about ImageJ plugin development.   -->
     <target name="compile" depends="init" description="compile classes">
-        <javac includeantruntime="false" destdir="${bin}" srcdir="${src}" classpath="${extdir}/Jama-1.0.3.jar">
+        <javac includeantruntime="false" destdir="${bin}" srcdir="${src}:${test}" classpath="${extdir}/Jama-1.0.3.jar">
         </javac>
     </target>
         
@@ -45,6 +45,16 @@
             </fileset>
         </jar>
      </target>
+	 
+	 <target name="test">
+	 	<java classname="test.util.probability.Gaussian">
+	  		<arg value="-h"/>
+	    	<classpath>
+	    		<pathelement location="externals/Jama-1.0.3.jar"/>
+	        	<pathelement path="bin"/>
+	   		</classpath>
+	 	</java>
+ 	</target>
 
      <!-- Clean up jar and other temp directories -->
     <target name="clean" description="delete all generated files">
