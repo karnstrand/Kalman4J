@@ -6,61 +6,64 @@ import util.MatrixFactory;
 import util.probability.Gaussian; 
  
 
-public class ConstantVelocity implements ProcessModel{
+public class ConstantVelocity implements ProcessModel
+{
 
-	private Gaussian noise; 
+	private double var; 
+	
+	// public interface
 	
 	public ConstantVelocity(double sigma)
 	{
-		noise = new Gaussian(new Matrix(2,1,0),MatrixFactory.eye(2).times(sigma*sigma)); 
-	}
-	
-	public ConstantVelocity(Matrix acc, double sigma)
-	{
-		noise = new Gaussian(acc, MatrixFactory.eye(2).times(sigma*sigma));  
+		this.var = sigma*sigma; 
 	}
 	
 	public Matrix predict(Matrix x, Matrix v, double T) {
-		Matrix F = getF(T);
+		
+		Matrix F = getF(x, T);
 		Matrix B = getB();
 		Matrix G = getG(T); 
-		Matrix x_new = (F.times(x)).plus(G.times(B).times(v)); 
-		return x_new;
+		return (F.times(x)).plus(G.times(B).times(v)); 
+	
 	}
 	
 	public Matrix predict(Matrix x, double T){
-		return predict(x, noise.mean(), T); 
-	}
-	
-	public Matrix getF(double T)
-	{
-		double[][] F = {{1,0,T,0},{0,1,0,T},{0,0,1,0},{0,0,0,1}}; 
-		return new Matrix(F); 
-	}
-	
-	private Matrix getG(double T)
-	{
-		double T2 = T*T/2.0; 
-		double[][] G = {{T,0,T2,0},{0,T,0,T2},{0,0,T,0},{0,0,0,T}}; 
-		return  new Matrix(G); 
+		return predict(x, new Matrix(new double[][]{{0},{0}}), T); 
 	}
 	
 	public Matrix getF(Matrix x, double T)
 	{
-		return getF(T);  
-	}
-
-	private Matrix getB()
-	{
-		double[][] BT = {{0, 0},{0,0},{1,0},{0,1}};
-		return new Matrix(BT); 
+		double[][] F = {{1,0,T,0},{0,1,0,T},{0,0,1,0},{0,0,0,1}}; 
+		return new Matrix(F);  
 	}
 
 	public Matrix getQ(Matrix x, double T) {
-		Matrix B = getB(); 
-		Matrix G = getG(T); 
-		Matrix Q = G.times(B).times(noise.cov()).times(B.transpose()).times(G.transpose());
-		return Q;  
+	
+		double T2 = T * T; 
+		double T3 = T2 * T / 2.0;
+		double T4 = T2 * T2 / 4.0; 
+		return new Matrix(new double[][]{{T4 * this.var, 0, T3 * this.var, 0},
+									 {0, T4 * this.var, 0, T3 * this.var},
+									 {T3 * this.var, 0, T2 * this.var, 0},
+									 {0, T3 * this.var, 0, T2 * this.var}});
+	}
+	
+	// private methods
+	
+	private Matrix getG(double T)
+	{
+		double T2 = T*T/2.0; 
+		double[][] G = {{T,0,T2,0},
+			            {0,T,0,T2},
+						{0,0,T,0 },
+						{0,0,0,T }}; 
+		return  new Matrix(G); 
+	}
+	
+	private Matrix getB()
+	{
+		double[][] BT = new double[][]{{0, 0},{0,0},{1,0},{0,1}};
+		return new Matrix(BT); 
 	}
 
 	
