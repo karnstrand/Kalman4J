@@ -2,6 +2,7 @@ package smoothing;
 
 import Jama.Matrix;
 import filter.ProcessModel;
+import filter.Measurement; 
 
 public class KalmanPosterior extends filter.KalmanPosterior{
 
@@ -10,6 +11,11 @@ public class KalmanPosterior extends filter.KalmanPosterior{
 	public KalmanPosterior(Matrix x, Matrix P, double t, ProcessModel mod) {
 		super(x, P, t, mod);
 		pred = null; 
+	}
+	
+	public KalmanPosterior(Matrix x, Matrix P, double t, ProcessModel mod, KalmanPrediction pred) {
+		super(x, P, t, mod);
+		this.pred = pred; 
 	}
 	
 	public KalmanPrediction predict(double t){
@@ -28,6 +34,12 @@ public class KalmanPosterior extends filter.KalmanPosterior{
 		Matrix A = Ppart.times(P.inverse());
 		
 		return new KalmanPrediction(x, P, t, mod, this, A);
+		
+	}
+	
+	public KalmanPosterior filter(Measurement meas){
+		
+		return this.predict(meas.time()).update(meas);
 		
 	}
 	
