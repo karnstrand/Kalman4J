@@ -13,18 +13,18 @@ public class CartesianMeasurementModel implements MeasurementModel {
 	}
 	
 	public Matrix h(Matrix x, Matrix w) {
-		return x.getMatrix(0,2,0,0).plus(w);
+		return x.getMatrix(0,1,0,0).plus(w);
 	}
 
 	public Matrix h(Matrix x) {
-		return x.getMatrix(0,2,0,0);
+		return x.getMatrix(0,1,0,0);
 	}
 
 	public Matrix getH(Matrix x) {
-		return MatrixFactory.eye(3); 
+		return new Matrix(new double[][]{{1,0,0,0},{0,1,0,0}}); 
 	}
 
-	public Matrix getR() {
+	public Matrix getR(Matrix x) {
 		return R; 
 	}
 

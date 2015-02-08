@@ -18,7 +18,7 @@ public class KalmanPrediction extends StateGaussian{
 		
 		Matrix y = measmod.h(mean());
 		
-		Matrix R = measmod.getR();
+		Matrix R = measmod.getR(null);
 		Matrix H = measmod.getH(mean()); 
 		
 		Matrix PHT = cov().times(H.transpose());

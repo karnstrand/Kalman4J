@@ -99,6 +99,5 @@ public class TestGaussian {
       assertEquals(density, result ,precision);
 
    }
-  
 
 }
