@@ -6,11 +6,10 @@ import Jama.Matrix;
 
 public class KalmanPrediction extends StateGaussian{
 	
-	private final ProcessModel mod; 
-	
 	public KalmanPrediction(Matrix x, Matrix P, double t, ProcessModel mod){
-		super(x,P,t); 
-		this.mod = mod; 
+		
+		super(x, P, t, mod); 
+		 
 	}
 
 	public KalmanPosterior update(Measurement M) {
@@ -31,7 +30,7 @@ public class KalmanPrediction extends StateGaussian{
 		Matrix Pmult = (Matrix.identity(n, n)).minus(K.times(H));
 		Matrix P = (Pmult.times(cov()).times(Pmult.transpose())).plus(K.times(R).times(K.transpose())); 
 	
-		return new KalmanPosterior(x, P, time(), mod);
+		return new KalmanPosterior(x, P, this.time(), this.getProcessModel());
 		
 	}
 	

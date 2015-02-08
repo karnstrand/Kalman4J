@@ -3,19 +3,18 @@ package smoothing;
 import Jama.Matrix;
 import filter.StateGaussian;
 
-
 public class Smoother extends StateGaussian{
 
 	private final KalmanPosterior post; 
 	
 	protected Smoother(Matrix x, Matrix P, KalmanPosterior post) {
-		super(x, P, post.time());
+		super(x, P, post.time(), post.getProcessModel());
 		this.post = post;  
 	}
 
 	
 	protected Smoother(KalmanPosterior post) {
-		super(post.mean(), post.cov(), post.time());
+		super(post.mean(), post.cov(), post.time(), post.getProcessModel());
 		this.post = post;  
 	}
 

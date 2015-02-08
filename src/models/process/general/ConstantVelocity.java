@@ -1,4 +1,4 @@
-package models.process;
+package models.process.general;
 
 import filter.ProcessModel;
 import Jama.Matrix;
@@ -25,7 +25,6 @@ public class ConstantVelocity implements ProcessModel{
 		Matrix B = getB();
 		Matrix G = getG(T); 
 		Matrix x_new = (F.times(x)).plus(G.times(B).times(v)); 
-		x_new.setMatrix(4,5,0,0,noise.mean());
 		return x_new;
 	}
 	
@@ -35,14 +34,14 @@ public class ConstantVelocity implements ProcessModel{
 	
 	public Matrix getF(double T)
 	{
-		double[][] F = {{1,0,T,0,0,0},{0,1,0,T,0,0},{0,0,1,0,0,0},{0,0,0,1,0,0},{0,0,0,0,0,0},{0,0,0,0,0,0}}; 
+		double[][] F = {{1,0,T,0},{0,1,0,T},{0,0,1,0},{0,0,0,1}}; 
 		return new Matrix(F); 
 	}
 	
 	private Matrix getG(double T)
 	{
 		double T2 = T*T/2.0; 
-		double[][] G = {{T,0,T2,0,0,0},{0,T,0,T2,0,0},{0,0,T,0,0,0},{0,0,0,T,0,0},{0,0,0,0,1,0},{0,0,0,0,0,1}}; 
+		double[][] G = {{T,0,T2,0},{0,T,0,T2},{0,0,T,0},{0,0,0,T}}; 
 		return  new Matrix(G); 
 	}
 	
@@ -53,7 +52,7 @@ public class ConstantVelocity implements ProcessModel{
 
 	private Matrix getB()
 	{
-		double[][] BT = {{0, 0},{0,0},{1,0},{0,1},{0,0},{0,0}};
+		double[][] BT = {{0, 0},{0,0},{1,0},{0,1}};
 		return new Matrix(BT); 
 	}
 
@@ -63,16 +62,6 @@ public class ConstantVelocity implements ProcessModel{
 		Matrix Q = G.times(B).times(noise.cov()).times(B.transpose()).times(G.transpose());
 		return Q;  
 	}
-	
-	public Matrix getQ(double T) {
-		return getQ(null, T); 
-	}
-
-	public Gaussian getNoise(){
-		return noise; 
-	}
-
-
 
 	
 }
