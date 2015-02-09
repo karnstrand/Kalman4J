@@ -2,6 +2,13 @@ package filter;
 
 import Jama.Matrix;
 
+/**
+ * Implements a process model in the state space and time of a dynamical system described as a 
+ * discretized multivariate stochastic differential equation
+ * @see filter.ProcessModel
+ * @see <a href="http://en.wikipedia.org/wiki/State_space">State space</a>
+ * @see <a href="http://en.wikipedia.org/wiki/Dynamical_system">Dynamical system</a>
+ */
 public interface ProcessModel {
 	 
 	/**

@@ -3,7 +3,11 @@ package filter;
 import Jama.Matrix;
 
 
-
+/**
+ * Implements predicton in the Kalman Filter.
+ * @see filter.StateGaussian
+ * @see <a href="http://en.wikipedia.org/wiki/Kalman_filter">Kalman filter/a>
+ */
 public class KalmanPrediction extends StateGaussian{
 	
 	public KalmanPrediction(Matrix x, Matrix P, double t, ProcessModel mod){
@@ -12,6 +16,12 @@ public class KalmanPrediction extends StateGaussian{
 		 
 	}
 
+	/**
+	 * Perform Kalman update given a meaurement
+	 *
+	 * @param   M the measurement
+	 * @return	the updated state
+	 */
 	public KalmanPosterior update(Measurement M) {
 		
 		MeasurementModel measmod = M.getMeasurementModel();
