@@ -1,2 +1,4 @@
-
-test/util/probability/TestGaussian.java
+*.class
+*~
+*.jar
+bin/
