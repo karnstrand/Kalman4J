@@ -6,7 +6,7 @@ import Jama.Matrix;
 /**
  * Implements predicton in the Kalman Filter.
  * @see filter.StateGaussian
- * @see <a href="http://en.wikipedia.org/wiki/Kalman_filter">Kalman filter/a>
+ * @see <a href="http://en.wikipedia.org/wiki/Kalman_filter">Kalman filter</a>
  */
 public class KalmanPrediction extends StateGaussian{
 	

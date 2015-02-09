@@ -5,7 +5,7 @@ import Jama.Matrix;
 /**
  * Implements the posterior state in the Kalman filter.
  * @see filter.StateGaussian
- * @see <a href="http://en.wikipedia.org/wiki/Kalman_filter">Kalman filter/a>
+ * @see <a href="http://en.wikipedia.org/wiki/Kalman_filter">Kalman filter</a>
  */
 public class KalmanPosterior extends StateGaussian{
 	
